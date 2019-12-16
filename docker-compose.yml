@@ -1,0 +1,41 @@
+version: "3.0"
+
+volumes:
+  mongo-data:
+    driver: local
+  mysql-data:
+    driver: local
+
+services:
+  mongo:
+    image: mongo
+    volumes:
+      - "mongo-data:/data/db"
+    ports:
+      - "27017:27017"
+
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql-data:/var/lib/mysql"
+    environment:
+      - MYSQLROOT_PASSWORD=admin
+      - MYSQL_USER=admin
+      - MYSQL_DATABASE=posts
+      - MYSQL_USER=publisher
+
+  web:
+    build:
+        context: . .
+    command: npm run dev
+    volumes: 
+      - "./src:/app/src"
+      - "./public:/app/public"
+      - "./server.js:/app/server.js"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - mysql
