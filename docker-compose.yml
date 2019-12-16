@@ -31,9 +31,9 @@ services:
         context: . .
     command: npm run dev
     volumes: 
-      - "./src:/app/src"
-      - "./public:/app/public"
-      - "./server.js:/app/server.js"
+      - "./src:/src"
+      - "./public:/public"
+      - "./server.js:/server.js"
     ports:
       - "3000:3000"
     depends_on:

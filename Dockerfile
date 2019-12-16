@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /app
+WORKDIR /
 
 COPY src src
 
@@ -12,4 +12,4 @@ COPY package*.json ./
 
 RUN npm install
 
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]
